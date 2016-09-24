@@ -1,7 +1,13 @@
 'use strict'
 
+//dependencies
 const express = require('express')
 const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
+const Tag = require('./models/tag.js')
+const Place = require('./models/place.js')
+
+mongoose.connect('mongodb://localhost:27017/places-app')
 
 const app = express()
 
@@ -13,59 +19,73 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 //endpoints
-
 //Get all places
 app.get('/places', (req, res) => {
-    res.status(200).send({places: []})
+    Place.find((err, places) => {
+        res.status(200).send({places: places})
+    })
 })
 
 //Get one place
 app.get('/places/:placeId', (req, res) => {
-    
+    Place.findById(req.params.placeId, (err, place) => {
+        res.status(200).send(place)
+    })
 })
 
 //Add a place
 app.post('/places', (req, res) => {
-    console.log(req.body)
-    res.status(201).send({})
+    new Place(req.body).save()
+    res.status(201)
 })
 
 //Modify one place
 app.put('/places/:placeId', (req, res) => {
-
+    Place.findByIdAndUpdate(req.params.placeId, req.body, (err, place) => {
+        res.status(204)
+    })
 })
 
 //Delete one place
 app.delete('/places/:placeID', (req, res) => {
-
+    Place.findByIdAndRemove(req.params.placeId, (err, place) => {
+        res.status(204)
+    })
 })
 
 //Get all tags
 app.get('/tags', (req, res) => {
-
+    Tag.find((err, tags) => {
+        res.status(200).send({tags: tags})
+    })
 })
 
 //Get one tag
-app.get('/tags/:tagName', (req, res) => {
-
+app.get('/tags/:tagId', (req, res) => {
+    Tag.findById(req.params.tagId, (err, tag) => {
+        res.status(200).send(tag)
+    })
 })
 
 //Add a tag
-app.post('/tag', (req, res) => {
-
+app.post('/tags', (req, res) => {
+    new Tag(req.body).save()
+    res.status(201)
 })
 
 //Modify one tag
-app.put('/tags/:tagName', (req, res) => {
-
+app.put('/tags/:tagId', (req, res) => {
+    Tag.findByIdAndUpdate(req.params.tagId, req.body, (err, tag) => {
+        res.status(204)
+    })
 })
 
 //Delete one tag
-app.delete('/tags/:tagName', (req, res) => {
-
+app.delete('/tags/:tagId', (req, res) => {
+    Tag.findByIdAndRemove(req.params.tagId, (err, tag) => {
+        res.status(204)
+    })
 })
-
-
 
 //Server listening block
 app.listen(port, () => {
