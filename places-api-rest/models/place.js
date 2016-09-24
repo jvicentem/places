@@ -1,9 +1,9 @@
 'use strict'
 
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-const Schema = mongoose.Schema
-const Tag = mongoose.model('Tag')
+const Schema = mongoose.Schema;
+const Tag = mongoose.model('Tag');
 
 var place  = new Schema({
     name: String,
@@ -14,6 +14,6 @@ var place  = new Schema({
     tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag'}],
     lactose: Boolean,
     review: {type: String, enum: ['good', 'normal', 'bad']}
-})
+});
 
-module.exports = mongoose.model('Place', place)
+module.exports = mongoose.model('Place', place);
