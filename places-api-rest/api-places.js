@@ -21,8 +21,13 @@ module.exports.getOnePlace = (req, res) => {
 };
 
 module.exports.addPlace = (req, res) => {
-    new Place(req.body).save();
-    res.status(201).send({message: 'Place saved successfully'});
+    new Place(req.body).save((err) => {
+        console.log(req.body)
+        if (err)
+            res.status(400).send({message: 'Error saving place: ' + err})
+        else
+            res.status(201).send({message: 'Place saved successfully'});
+    });
 };
 
 module.exports.modifyOnePlace = (req, res) => {

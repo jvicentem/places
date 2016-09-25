@@ -21,8 +21,13 @@ module.exports.getOneTag = (req, res) => {
 };
 
 module.exports.addTag = (req, res) => {
-    new Tag(req.body).save();
-    res.status(201).send({message: 'Tag saved successfully'});
+    new Tag(req.body).save((err) => {
+        console.log(req.body)
+        if (err)
+            res.status(400).send({message: 'Error saving tag: ' + err})
+        else
+            res.status(201).send({message: 'Tag saved successfully'});
+    });
 };
 
 module.exports.modifyOneTag = (req, res) => {
