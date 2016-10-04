@@ -13,7 +13,7 @@ var place  = new Schema({
                  },
     tags: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Tag'}],
     lactose: Boolean,
-    review: {type: String, enum: ['good', 'normal', 'bad']},
+    review: {type: String, enum: ['good', 'normal', 'bad', 'unknown']},
     url: String
 });
 
