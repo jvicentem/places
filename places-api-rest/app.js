@@ -4,6 +4,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const cors = require('cors')
 
 const apiTags = require('./api-tags.js');
 const apiPlaces = require('./api-places.js');
@@ -28,9 +29,9 @@ app.listen(port, () => {
 //endpoints
 //Places
 //Get all places
-app.get('/places', apiPlaces.getPlaces);
+app.get('/places', cors(), apiPlaces.getPlaces);
 //Get one place
-app.get('/places/:placeId', apiPlaces.getOnePlace);
+app.get('/places/:placeId', cors(), apiPlaces.getOnePlace);
 //Add a place
 app.post('/places', apiPlaces.addPlace);
 //Modify one place
@@ -39,9 +40,9 @@ app.put('/places/:placeId', apiPlaces.modifyOnePlace);
 app.delete('/places/:placeID', apiPlaces.deleteOnePlace);
 //Tags
 //Get all tags
-app.get('/tags', apiTags.getTags);
+app.get('/tags', cors(), apiTags.getTags);
 //Get one tag
-app.get('/tags/:tagId', apiTags.getOneTag);
+app.get('/tags/:tagId', cors(), apiTags.getOneTag);
 //Add a tag
 app.post('/tags', apiTags.addTag);
 //Modify one tag
