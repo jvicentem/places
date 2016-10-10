@@ -1,5 +1,5 @@
 ## PLACES ##
 
-At this very moment, I'm too lazy to write about the technologies I'm gonna use on this project and what is this project about, so... 
+Okay, this is the back-end of side of this project -> https://github.com/jvicentem/places-frontend
 
-I'll modify this file in the future if I get something useful from this.
+Technologies I've used: Node.js, Express and MongoDB
