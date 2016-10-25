@@ -4,7 +4,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const cors = require('cors')
+const cors = require('cors');
+var https = require('https');
+var http = require('http');
+var fs = require('fs');
 
 const apiTags = require('./api-tags.js');
 const apiPlaces = require('./api-places.js');
@@ -22,9 +25,24 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 //Server listening block
-app.listen(port, () => {
+/*app.listen(port, () => {
     console.log(`Listening on port ${port}!`);
-});
+});*/
+
+//http.createServer(app).listen(port);
+
+var options = {
+    key: fs.readFileSync('/etc/apache2/ssl/ssl.key'),
+    cert: fs.readFileSync('/etc/apache2/ssl/ssl.crt'),
+    requestCert: false,
+    rejectUnauthorized: false
+};
+
+https.createServer(options, app).listen(port,
+    (err) => {
+        console.log(err);
+    }
+);
 
 //endpoints
 //Places
