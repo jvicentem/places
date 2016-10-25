@@ -24,12 +24,7 @@ const port = process.env.PORT || 3000;
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-//Server listening block
-/*app.listen(port, () => {
-    console.log(`Listening on port ${port}!`);
-});*/
-
-//http.createServer(app).listen(port);
+http.createServer(app).listen(port);
 
 var options = {
     key: fs.readFileSync('/etc/apache2/ssl/ssl.key'),
@@ -38,9 +33,11 @@ var options = {
     rejectUnauthorized: false
 };
 
-https.createServer(options, app).listen(port,
-    (err) => {
-        console.log(err);
+const portHttps = parseInt(port) + 1;
+
+https.createServer(options, app).listen(portHttps,
+    () => {
+        console.log('Listening on port ' + portHttps);
     }
 );
 
